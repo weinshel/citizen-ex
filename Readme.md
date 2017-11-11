@@ -24,7 +24,13 @@ Gulp runs several tasks: looks for those HTML file insertions, then concatenates
 
 It’s easier to organise the files, but the downside is that you have to leave Gulp running on the console.
 
-From the project’s root directory run the following:
+To install Gulp, run the following:
+
+```
+$ npm install gulp-cli -g
+```
+
+Then, from the project’s root directory run the following:
 
 ```
 $ gulp
