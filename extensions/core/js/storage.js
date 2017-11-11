@@ -14,8 +14,6 @@ CxStorage.prototype.set = function(property, value) {
     chrome.storage.local.set(obj);
   } else if (this.browser.safari()) {
     localStorage[property] = json;
-  } else if (this.browser.firefox()) {
-    ss.storage[property] = json;
   } else {
     throw 'Unknown browser';
   }
@@ -36,12 +34,6 @@ CxStorage.prototype.get = function(property, callback) {
       var data = JSON.parse(localStorage[property]);
     }
     callback(data);
-  } else if (this.browser.firefox()) {
-    var data = undefined;
-    if (ss.storage[property]) {
-      var data = JSON.parse(ss.storage[property]);
-    }
-    callback(data);
   } else {
     throw 'Unknown browser';
   }
@@ -52,8 +44,6 @@ CxStorage.prototype.clear = function() {
     chrome.storage.local.clear();
   } else if (this.browser.safari()) {
     localStorage.clear();
-    message.send({ eraseData: true });
-  } else if (this.browser.firefox()) {
     message.send({ eraseData: true });
   } else {
     throw 'Unknown browser';

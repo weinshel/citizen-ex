@@ -1,6 +1,6 @@
 // page/js/init_chrome.js
 
-chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if (request.tabs) {
     cxPage.receiveOpenTabs(request.tabs);
   } else if (request.lastTab)  {

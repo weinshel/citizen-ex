@@ -26,7 +26,10 @@
     "default_title": "Citizen Ex",
     "default_icon": "icon64.png"
   },
-  "options_page": "page/page.html",
+  "options_ui": {
+    "page": "page/page.html",
+    "open_in_tab": true
+   },
   "web_accessible_resources": [
     "flags/*.svg",
     "images/*",

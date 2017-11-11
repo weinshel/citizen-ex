@@ -15,8 +15,6 @@ CxMessage.prototype.send = function(message) {
     chrome.runtime.sendMessage(message);
   } else if (this.browser.safari()) {
     safari.self.tab.dispatchMessage(key, message, false);
-  } else if (this.browser.firefox()) {
-    self.port.emit(key, message);
   } else {
     throw 'Unknown browser';
   }

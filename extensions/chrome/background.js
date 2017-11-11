@@ -17,11 +17,11 @@ var CxBrowser = function() {
       if (typeof safari !== 'undefined') {
         this.name = 'safari';
       } else {
-        this.name = 'firefox';
+        this.name = 'chrome';
       }
     }
   } else {
-    this.name = 'firefox';
+    this.name = 'chrome';
   }
 };
 
@@ -32,11 +32,6 @@ CxBrowser.prototype.chrome = function() {
 CxBrowser.prototype.safari = function() {
   return this.name === 'safari';
 };
-
-CxBrowser.prototype.firefox = function() {
-  return this.name === 'firefox';
-};
-
 var CxStorage = function(browser) {
   this.browser = browser;
 };
@@ -53,8 +48,6 @@ CxStorage.prototype.set = function(property, value) {
     chrome.storage.local.set(obj);
   } else if (this.browser.safari()) {
     localStorage[property] = json;
-  } else if (this.browser.firefox()) {
-    ss.storage[property] = json;
   } else {
     throw 'Unknown browser';
   }
@@ -75,12 +68,6 @@ CxStorage.prototype.get = function(property, callback) {
       var data = JSON.parse(localStorage[property]);
     }
     callback(data);
-  } else if (this.browser.firefox()) {
-    var data = undefined;
-    if (ss.storage[property]) {
-      var data = JSON.parse(ss.storage[property]);
-    }
-    callback(data);
   } else {
     throw 'Unknown browser';
   }
@@ -91,8 +78,6 @@ CxStorage.prototype.clear = function() {
     chrome.storage.local.clear();
   } else if (this.browser.safari()) {
     localStorage.clear();
-    message.send({ eraseData: true });
-  } else if (this.browser.firefox()) {
     message.send({ eraseData: true });
   } else {
     throw 'Unknown browser';
@@ -116,10 +101,6 @@ CxMessage.prototype.send = function(message) {
     chrome.runtime.sendMessage(message);
   } else if (this.browser.safari()) {
     safari.application.activeBrowserWindow.activeTab.page.dispatchMessage(key, message);
-  } else if (this.browser.firefox()) {
-    if (messagingWorker) {
-      messagingWorker.port.emit(key, message);
-    }
   } else {
     throw 'Unknown browser';
   }
@@ -140,19 +121,6 @@ CxIcon.prototype.setIcon = function(iconType, tabId) {
   } else if (this.browser.safari()) {
     var iconUri = safari.extension.baseURI + this[iconType];
     safari.extension.toolbarItems[0].image = iconUri;
-  } else if (this.browser.firefox()) {
-    var iconUrl = self.data.url(this[iconType]);
-
-    _.each(tabs, function(enumTab) {
-      if (enumTab.id === tabId) {
-        button.state(enumTab, {
-          disabled: false,
-          icon: {
-            '16': iconUrl
-          }
-        });
-      }
-    })
   }
 };
 
@@ -239,26 +207,16 @@ Utils.prototype.log = function(thing) {
 };
 
 Utils.prototype.get = function(url, callback) {
-  if (this.browser.firefox()) {
-    var request = Request({
-      url: url,
-      onComplete: function(response) {
-        callback(response.text);
-      }
-    });
-    request.get();
-  } else {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', url, true);
-    xhr.onreadystatechange = function() {
-      if (xhr.readyState == 4 && xhr.status == 200) {
-       callback(xhr.responseText);
-      } else if (xhr.readyState == 4) {
-        console.log('Error getting response data from ' + url);
-      }
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', url, true);
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      callback(xhr.responseText);
+    } else if (xhr.readyState == 4) {
+      console.log('Error getting response data from ' + url);
     }
-    xhr.send();
   }
+  xhr.send();
 };
 
 Utils.prototype.reset = function() {

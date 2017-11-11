@@ -141,13 +141,7 @@ var CxExtension = Backbone.Model.extend({
   },
 
   open: function(tabId) {
-    if (this.browser.firefox()) {
-      if (tabId === this.get('tabId')) {
-        this.set({ open: true });
-      }
-    } else {
-      this.set({ open: true });
-    }
+    this.set({ open: true });
   },
 
   close: function() {

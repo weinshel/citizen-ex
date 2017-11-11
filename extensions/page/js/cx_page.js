@@ -8,9 +8,7 @@ var CxPage = CxExtension.extend({
 
     this.set({ timeframe: this.timeframes[0] });
     this.toggleTimeframe(this.timeframes[0].name);
-    if (!this.browser.firefox()) {
-      this.open();
-    }
+    this.open();
   },
 
   getCitizenshipForDays: function(n) {

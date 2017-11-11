@@ -8,11 +8,11 @@ var CxBrowser = function() {
       if (typeof safari !== 'undefined') {
         this.name = 'safari';
       } else {
-        this.name = 'firefox';
+        this.name = 'chrome';
       }
     }
   } else {
-    this.name = 'firefox';
+    this.name = 'chrome';
   }
 };
 
@@ -22,8 +22,4 @@ CxBrowser.prototype.chrome = function() {
 
 CxBrowser.prototype.safari = function() {
   return this.name === 'safari';
-};
-
-CxBrowser.prototype.firefox = function() {
-  return this.name === 'firefox';
 };

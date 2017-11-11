@@ -1,9 +1,0 @@
-{
-  "name": "citizen_ex",
-  "title": "Citizen Ex",
-  "id": "citizenex@jetpack",
-  "description": "Citizen Ex shows you where on the Web you are, and what it means.",
-  "author": "James Bridle",
-  "version": "1.0.0",
-  "main": "lib/main.js"
-}

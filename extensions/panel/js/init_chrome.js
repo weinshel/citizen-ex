@@ -1,6 +1,6 @@
 // panel/js/init_chrome.js
 
-chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if (_.has(request, 'tabs')) {
     cxPanel.receiveOpenTabs(request.tabs);
   } else if (_.has(request, 'activeTab'))  {

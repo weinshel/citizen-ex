@@ -49,10 +49,6 @@ var CxPanelView = Backbone.View.extend({
   },
 
   openPage: function(event) {
-    if (this.model.browser && this.model.browser.firefox()) {
-      event.preventDefault();
-      this.model.requestPage();
-    }
   },
 
   eraseData: function(event) {

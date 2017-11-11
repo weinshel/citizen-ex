@@ -6,7 +6,7 @@ cxPanel.requestActiveTab();
 cxPanel.toggle();
 cxPanel.requestOpenTabs();
 
-chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if (request.tabs) {
     cxPanel.receiveOpenTabs(request.tabs);
   }

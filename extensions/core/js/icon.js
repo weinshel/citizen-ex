@@ -12,18 +12,5 @@ CxIcon.prototype.setIcon = function(iconType, tabId) {
   } else if (this.browser.safari()) {
     var iconUri = safari.extension.baseURI + this[iconType];
     safari.extension.toolbarItems[0].image = iconUri;
-  } else if (this.browser.firefox()) {
-    var iconUrl = self.data.url(this[iconType]);
-
-    _.each(tabs, function(enumTab) {
-      if (enumTab.id === tabId) {
-        button.state(enumTab, {
-          disabled: false,
-          icon: {
-            '16': iconUrl
-          }
-        });
-      }
-    })
   }
 };
